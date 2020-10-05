@@ -48,31 +48,31 @@ let myAge = 29;
 let classNames = ["Martijn", "Tim", "Lotte"];
 let myArray = [];
 
-// datatype: object
-let classGroupB = {
-    className: "3B",
-    studentNames: ["Martijn", "Tim", "Lotte", "Szimon", "Rady", "Julia", "…"],
-    classRepresentative: "Martijn",
-    codingTeacher: "Martijn"
-};
-let myObject = {};
-
-function myFunction(inputObject) {
-
-    console.log(inputObject.className);
-
-    inputObject.studentNames.forEach( function(name) {
-        console.log("hello " + name);
-    });
-
-    for(let index = 0; index < inputObject.studentNames.length; index++) {
-        console.log(   inputObject.studentNames[ index ]    );
-    }
-
-    for(objectKey in inputObject) {
-        console.log( objectKey + ":", inputObject[objectKey] );
-    }
-
-}
-
-myFunction(classGroupB);
+// // datatype: object
+// let classGroupB = {
+//     className: "3B",
+//     studentNames: ["Martijn", "Tim", "Lotte", "Szimon", "Rady", "Julia", "…"],
+//     classRepresentative: "Martijn",
+//     codingTeacher: "Martijn"
+// };
+// let myObject = {};
+//
+// function myFunction(inputObject) {
+//
+//     console.log(inputObject.className);
+//
+//     inputObject.studentNames.forEach( function(name) {
+//         console.log("hello " + name);
+//     });
+//
+//     for(let index = 0; index < inputObject.studentNames.length; index++) {
+//         console.log(   inputObject.studentNames[ index ]    );
+//     }
+//
+//     for(objectKey in inputObject) {
+//         console.log( objectKey + ":", inputObject[objectKey] );
+//     }
+//
+// }
+//
+// myFunction(classGroupB);
