@@ -5,14 +5,13 @@ const socketio = require("socket.io");
 
 const port = 3000;
 const publicDirectoryPath = path.join(__dirname, "../public");
-
 const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
 
 app.use(express.static(publicDirectoryPath));
 
-io.on("connection", (socket) => {
+io.on("connection", function(socket) {
 
     socket.emit("systemMessage", "Hello, welcome to your realtime app!");
 

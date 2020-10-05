@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
     <title>Realtime chat application</title>
+    <link rel="stylesheet" href="styles/stylesheet.css">
+
 </head>
 <body>
+
     <button id="buttonThis">CLICK ME!</button>
 
-
     <form id="myForm">
+
         <label>
             Message:
         </label>
@@ -18,14 +22,15 @@
         <button type="submit">
             Just send it!
         </button>
+
     </form>
 
     <div id="messageContainer">
 
     </div>
 
-
     <script src="/socket.io/socket.io.js"></script>
     <script src="./scripts/script.js"></script>
+
 </body>
 </html>
