@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Realtime chat application</title>
+</head>
+<body>
+    <button id="buttonThis">CLICK ME!</button>
+
+
+    <form id="myForm">
+        <label>
+            Message:
+        </label>
+
+        <input id="myInput" type="text">
+
+        <button type="submit">
+            Just send it!
+        </button>
+    </form>
+
+    <div id="messageContainer">
+
+    </div>
+
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="./scripts/script.js"></script>
+</body>
+</html>
