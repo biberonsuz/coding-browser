@@ -1,7 +1,7 @@
 // socket io client side code!
-// const socket = io();
-// const mssgContainer = document.querySelector("#messageContainer");
-//
+const socket = io();
+const mssgContainer = document.querySelector("#messageContainer");
+
 socket.on("systemMessage", function(message) {
     let newElement = document.createElement("div");
     let newTextElement = document.createElement("p");
@@ -10,19 +10,19 @@ socket.on("systemMessage", function(message) {
     newElement.append(newTextElement);
     mssgContainer.append(newElement);
 });
-//
-// document.querySelector("#buttonThis").addEventListener("click", function() {
-//     socket.emit("socketMessage", "THIS ONE CLICKED!");
-// });
 
-// document.querySelector("#myForm").addEventListener("submit", function(event) {
-//     event.preventDefault();
-//
-//     socket.emit("socketMessage", document.querySelector("#myInput").value);
-//
-//     document.querySelector("#myInput").value = "";
-//     document.querySelector("#myInput").focus();
-// });
+document.querySelector("#buttonThis").addEventListener("click", function() {
+    socket.emit("socketMessage", "THIS ONE CLICKED!");
+});
+
+document.querySelector("#myForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    socket.emit("socketMessage", document.querySelector("#myInput").value);
+
+    document.querySelector("#myInput").value = "";
+    document.querySelector("#myInput").focus();
+});
 
 
 
