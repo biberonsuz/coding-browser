@@ -1,6 +1,8 @@
 // socket io client side code!
 const socket = io();
-const mssgContainer = document.querySelector("#messageContainer");
+const msgContainer = document.querySelector("#messageContainer");
+const body = document.querySelector("body")
+let height = 0;
 
 socket.on("systemMessage", function(message) {
     let newElement = document.createElement("div");
@@ -8,83 +10,30 @@ socket.on("systemMessage", function(message) {
 
     newTextElement.innerHTML = message;
     newElement.append(newTextElement);
-    mssgContainer.append(newElement);
+    msgContainer.append(newElement);
 });
 
-document.querySelector("#buttonThis").addEventListener("click", function() {
+document.querySelector("#add-cloud").addEventListener("click", function() {
     socket.emit("socketMessage", "THIS ONE CLICKED!");
-});
+})
 
 document.querySelector("#myForm").addEventListener("submit", function(event) {
     event.preventDefault();
 
-    socket.emit("socketMessage", document.querySelector("#myInput").value);
+    socket.emit("socketMessage", document.querySelector("#message").value);
 
-    document.querySelector("#myInput").value = "";
-    document.querySelector("#myInput").focus();
-});
-
-
-
+    document.querySelector("#message").value = "";
+    document.querySelector("#message").focus();
+    
+    height += msgContainer.lastElementChild.offsetHeight + 30
+    console.log(height)
+    if (height > body.offsetHeight) {
+        msgContainer.firstElementChild.remove()
+    }
+})
 
 
 // changeable variables : using keyword let
-let myVariable = "Martijn";
-
-// static constants : using keyword const
-const gravity = 8; // gravity * 2: 16
-const gravityTwo = "8"; // gravityTwo * 2 (NaN)
-
-// datatype: Strings
-const myName = "Martijn";
-
-// datatype: Numbers
-let myAge = 29;
-
-// datatype: array | accesing: // studentsFirstNames[2]
-let studentsFirstNames = ["Martijn", "Tim", "Lotte", "wef", "wef", "trrg"];
-let studentsLastNames = ["de Heer", "Vermeulen", "Spaans", "sjdsjf", "sdjfjsdf", "jsdfj"];
-let myArray = [];
-
-
-// Declaring a function
-function sayMyName(firstName, lastName) {
-    console.log(firstName + " " + lastName);
-}
-
-// Calling a function
-sayMyName("Martijn", "de Heer");
-
-
-for(let counter = 0; counter < studentsFirstNames.length; counter++) {
-    console.log(counter);
-    sayMyName(studentsFirstNames[counter], studentsLastNames[counter]);
-}
-
-
-// datatype: object | let myObject = {};
-let classA = {
-    className: "3B",
-    studentNames: ["Martijn", "Tim", "Lotte", "Szimon", "Rady", "Julia", "Lotte"],
-    classRepresentative: "Tim",
-    codingTeacher: "Martijn"
-};
-
-console.log(classA.className);
-
-for(objectKey in classA) {
-    console.log( classA[objectKey] );
-
-    if(objectKey === "studentNames") {
-        for(let counter = 0; counter < objectKey.length; counter++) {
-            console.log( classA[objectKey][counter] );
-        }
-    }
-}
-
-
-
-
 
 // function myFunction(inputObject) {
 //
