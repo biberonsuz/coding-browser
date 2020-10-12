@@ -23,6 +23,8 @@ io.on("connection", function(socket) {
 
 });
 
+//hello
+
 server.listen(port, function() {
     console.log("Hello, I'm listening on " + port);
 });
