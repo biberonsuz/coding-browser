@@ -1,28 +1,28 @@
 // socket io client side code!
-const socket = io();
-const mssgContainer = document.querySelector("#messageContainer");
+// const socket = io();
+// const mssgContainer = document.querySelector("#messageContainer");
+//
+// socket.on("systemMessage", function(message) {
+//     let newElement = document.createElement("div");
+//     let newTextElement = document.createElement("p");
+//
+//     newTextElement.innerHTML = message;
+//     newElement.append(newTextElement);
+//     mssgContainer.append(newElement);
+// });
+//
+// document.querySelector("#buttonThis").addEventListener("click", function() {
+//     socket.emit("socketMessage", "THIS ONE CLICKED!");
+// });
 
-socket.on("systemMessage", function(message) {
-    let newElement = document.createElement("div");
-    let newTextElement = document.createElement("p");
-
-    newTextElement.innerHTML = message;
-    newElement.append(newTextElement);
-    mssgContainer.append(newElement);
-});
-
-document.querySelector("#buttonThis").addEventListener("click", function() {
-    socket.emit("socketMessage", "THIS ONE CLICKED!");
-});
-
-document.querySelector("#myForm").addEventListener("submit", function(event) {
-    event.preventDefault();
-
-    socket.emit("socketMessage", document.querySelector("#myInput").value);
-
-    document.querySelector("#myInput").value = "";
-    document.querySelector("#myInput").focus();
-});
+// document.querySelector("#myForm").addEventListener("submit", function(event) {
+//     event.preventDefault();
+//
+//     socket.emit("socketMessage", document.querySelector("#myInput").value);
+//
+//     document.querySelector("#myInput").value = "";
+//     document.querySelector("#myInput").focus();
+// });
 
 
 
@@ -46,6 +46,7 @@ let studentsFirstNames = ["Martijn", "Tim", "Lotte", "wef", "wef", "trrg"];
 let studentsLastNames = ["de Heer", "Vermeulen", "Spaans", "sjdsjf", "sdjfjsdf", "jsdfj"];
 let myArray = [];
 
+
 // Declaring a function
 function sayMyName(firstName, lastName) {
     console.log(firstName + " " + lastName);
@@ -54,10 +55,12 @@ function sayMyName(firstName, lastName) {
 // Calling a function
 sayMyName("Martijn", "de Heer");
 
+
 for(let counter = 0; counter < studentsFirstNames.length; counter++) {
     console.log(counter);
     sayMyName(studentsFirstNames[counter], studentsLastNames[counter]);
 }
+
 
 // datatype: object | let myObject = {};
 let classA = {
@@ -66,6 +69,8 @@ let classA = {
     classRepresentative: "Tim",
     codingTeacher: "Martijn"
 };
+
+console.log(classA.className);
 
 for(objectKey in classA) {
     console.log( classA[objectKey] );
@@ -81,20 +86,20 @@ for(objectKey in classA) {
 
 
 
-function myFunction(inputObject) {
-
-    console.log(inputObject.className);
-
-    inputObject.studentNames.forEach( function(name) {
-        console.log("hello " + name);
-    });
-
-    for(let index = 0; index < inputObject.studentNames.length; index++) {
-        console.log(   inputObject.studentNames[ index ]    );
-    }
-
-    for(objectKey in inputObject) {
-        console.log( objectKey + ":", inputObject[objectKey] );
-    }
-
-}
+// function myFunction(inputObject) {
+//
+//     console.log(inputObject.className);
+//
+//     inputObject.studentNames.forEach( function(name) {
+//         console.log("hello " + name);
+//     });
+//
+//     for(let index = 0; index < inputObject.studentNames.length; index++) {
+//         console.log(   inputObject.studentNames[ index ]    );
+//     }
+//
+//     for(objectKey in inputObject) {
+//         console.log( objectKey + ":", inputObject[objectKey] );
+//     }
+//
+// }
