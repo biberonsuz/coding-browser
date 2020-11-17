@@ -1,64 +1,129 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
     <meta charset="UTF-8">
     <title>New World Order</title>
     <link rel="stylesheet" href="styles/stylesheet.css">
 </head>
 <body>
-    <canvas id="renderCanvas" touch-action="none"></canvas>
     <div id="chat-container">
-        <div id="messageContainer"></div>
-        <form id="myForm">
+        <div id="message-container"></div>
+        <form>
             <label>Communicate:</label>
             <input id="message" type="text">
         </form>
-        <button id="add-cloud">Add cloud.</button>
     </div>
     <script src="/socket.io/socket.io.js"></script>
     <script src="./scripts/script.js"></script>
-    <script src="https://preview.babylonjs.com/babylon.js"></script>
-    <script src="https://preview.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
+    <script src="js/three.js"></script>
+    <script src="js/OrbitControls.js"></script>
+    <script src="js/FBXLoader.js"></script>
+    <script src="js/inflate.min.js"></script>
     <script>
-        var canvas = document.getElementById("renderCanvas"); // Get the canvas element
-        var engine = new BABYLON.Engine(canvas, true); // Generate the BABYLON 3D engine
+            var camera, scene, renderer, controls, object;
+			var d = 15;
 
-        /******* Add the create scene function ******/
-        var createScene = function () {
+			var WIDTH = window.innerWidth;
+			var HEIGHT = window.innerHeight;
 
-            // Create the scene space
-            var scene = new BABYLON.Scene(engine);
-            scene.clearColor = new BABYLON.Color4(0, 0, 0, 0);
-            // Add a camera to the scene and attach it to the canvas
-            var camera = new BABYLON.ArcRotateCamera("Camera", Math.PI / 2, Math.PI / 2, 2, new BABYLON.Vector3(0,0,5), scene);
-            camera.attachControl(canvas, true);
+			var aspect = window.innerWidth / window.innerHeight
 
-            // Add lights to the scene
-            var light1 = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(1, 1, 0), scene);
-            var light2 = new BABYLON.PointLight("light2", new BABYLON.Vector3(0, 1, -1), scene);
+			function init() {
 
-            // Add and manipulate meshes in the scene
-            var sphere = BABYLON.MeshBuilder.CreateSphere("sphere", {diameter:2}, scene);
-            var spheremat = new BABYLON.StandardMaterial("spheremat", scene)
-            spheremat.diffuseTexture = new BABYLON.Texture("/sky.png", scene)
-            sphere.material = spheremat
+				camera = new THREE.PerspectiveCamera( 55, WIDTH / HEIGHT, 1, 10000 );
+				camera.position.set( -1500, 200, 200);
 
-            return scene;
-        };
-        /******* End of the create scene function ******/
+				scene = new THREE.Scene();
+				scene.background = new THREE.Color( 0xb0b0b0 );
 
-        var scene = createScene(); //Call the createScene function
+				//lights
+				let ambient = new THREE.AmbientLight( 0xffffff, 0.8 )
+				ambient.position.set(0,100,0)
+				scene.add(ambient)
 
-        // Register a render loop to repeatedly render the scene
-        engine.runRenderLoop(function () {
-                scene.render();
-        });
+				let light = new THREE.PointLight( 0xffffee, 0.3, 100 )
+				light.position.set(0,100,0)
+				scene.add(light)
 
-        // Watch for browser/canvas resize events
-        window.addEventListener("resize", function () {
-                engine.resize();
-        });
+                const textureLoader = new THREE.TextureLoader()
+                const FBXLoader = new THREE.FBXLoader()
+
+				renderer = new THREE.WebGLRenderer()
+				renderer.setPixelRatio( window.devicePixelRatio )
+				renderer.setSize( window.innerWidth, window.innerHeight )
+				document.body.appendChild( renderer.domElement )
+
+				controls = new THREE.OrbitControls( camera, renderer.domElement )
+                controls.target = new THREE.Vector3(0, 200, 0)
+                controls.enableZoom = false
+                controls.enablePan = true
+                controls.keyPanSpeed = 250
+                controls.keys = {
+                    LEFT: 65, // 37, left arrow
+                    UP:  87, // 38, up arrow
+                    RIGHT:  68, // 39, right arrow
+                    BOTTOM:  83 // 40,down arrow
+                }
+                controls.update()
+                
+                controls.enableDamping = true
+                controls.dampingFactor = 0.05
+                controls.screenSpacePanning = false
+
+                const direction = new THREE.Vector3()
+                camera.getWorldDirection(direction)
+                camera.getWorldPosition(controls.target)
+                controls.target.addScaledVector(direction, 50)
+
+                //objects
+                
+                worldGeo = new THREE.SphereGeometry(8000, 32, 32)
+                worldMat = new THREE.MeshBasicMaterial( { color: 0xff0000, side: THREE.DoubleSide } )
+                const world = new THREE.Mesh(worldGeo, worldMat)
+                scene.add(world)
+
+
+                const asphalt = new THREE.TextureLoader().load( 'content/img/concrete.jpg' , function ( texture ) {
+                    texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+                    texture.offset.set( 0, 0 );
+                    texture.repeat.set( 20, 20 );
+                })
+                const groundMat = new THREE.MeshBasicMaterial( { map: asphalt, side: THREE.DoubleSide } );
+                const groundGeo = new THREE.PlaneGeometry( 12000, 12000, 32 );
+                const ground = new THREE.Mesh( groundGeo, groundMat );
+                ground.rotation.x = 1.5708
+                scene.add( ground );
+
+				FBXLoader.load( 'content/obj/bina.fbx', function ( bina ) {
+                    bina.position.set(0,0,0)
+                    bina.scale.set(3,3,3)
+                    scene.add( bina );
+                }, undefined, function ( e ) {
+                    console.error( e );
+                } );
+
+				window.addEventListener( 'resize', onWindowResize, false );
+
+			}
+
+			function animate() {
+
+				requestAnimationFrame( animate )
+
+				renderer.render( scene, camera )
+
+			}
+
+			init()
+			animate()
+
+			function onWindowResize() {
+				aspect = window.innerWidth/ window.innerHeight
+				camera.aspect = ( - d * aspect)/ (d * aspect)
+				camera.updateProjectionMatrix()
+
+				renderer.setSize( window.innerWidth, window.innerHeight )
+			}
     </script>
 </body>
 

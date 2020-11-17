@@ -1,29 +1,25 @@
 // socket io client side code!
-const socket = io();
-const msgContainer = document.querySelector("#messageContainer");
+const socket = io()
+const msgContainer = document.querySelector("#message-container")
 const body = document.querySelector("body")
-let height = 0;
+let height = 0
 
 socket.on("systemMessage", function(message) {
-    let newElement = document.createElement("div");
-    let newTextElement = document.createElement("p");
+    let newElement = document.createElement("div")
+    newElement.className = 'sys'
+    let newTextElement = document.createElement("p")
 
-    newTextElement.innerHTML = message;
-    newElement.append(newTextElement);
-    msgContainer.append(newElement);
-});
-
-document.querySelector("#add-cloud").addEventListener("click", function() {
-    socket.emit("socketMessage", "THIS ONE CLICKED!");
+    newTextElement.innerHTML = message
+    newElement.append(newTextElement)
+    msgContainer.append(newElement)
 })
-
-document.querySelector("#myForm").addEventListener("submit", function(event) {
+document.querySelector("form").addEventListener("submit", function(event) {
     event.preventDefault();
 
-    socket.emit("socketMessage", document.querySelector("#message").value);
+    socket.emit("socketMessage", document.querySelector("#message").value)
 
     document.querySelector("#message").value = "";
-    document.querySelector("#message").focus();
+    document.querySelector("#message").focus()
     
     height += msgContainer.lastElementChild.offsetHeight + 30
     console.log(height)

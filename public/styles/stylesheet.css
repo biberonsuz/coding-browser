@@ -1,3 +1,11 @@
+:root {
+    --sky: #47a9ff;
+    --white-trans: rgba(255,255,255,0.65);
+}
+::selection {
+    color: none;
+    background: none;
+}
 * {
     margin:0;
     padding:0;
@@ -10,29 +18,39 @@ body {
     font-family: Helvetica, sans-serif;
     background-image: linear-gradient(white, var(--sky));
 }
-:root {
-    --sky: #47a9ff;
-    --white-trans: rgba(255,255,255,0.65);
+canvas {
+    position:absolute;
+    left:0;
+    top:0;
+    width:100%;
+    height:100%;
+    z-index:0;
 }
-
-#messageContainer div {
-    display: inline-block;
-    float: left;
-    clear: both;
+#message-container div {
+    display: inline;
+    float:left;
+    clear:both;
+    padding: 1.5vh;
+}
+#message-container .msg {
     background-color: var(--white-trans);
     box-shadow: 0 0 2vh var(--white-trans);
     border-radius: 3vh;
-    padding: 1.5vh;
     margin: 1vh;
 }
-#chat-Container {
-    width:100%; 
+#message-container .sys {
+    float:left;
+    clear: both;
+}
+#chat-container {
+    position:absolute;
+    height:100%;
     z-index:100; 
 }
-#myForm {
+form {
     display:flex;
     position:absolute;
-    width:calc(100% - 1vh);
+    width:calc(100vw - 1vh);
     bottom:0;
     left:0;
     margin:1vh;
@@ -53,15 +71,6 @@ body {
 input:focus {
     outline:none;
 }
-#add-cloud {
-    right:0;
-}
 p {
     margin: 0;
-}
-#renderCanvas {
-    position:absolute;
-    width:100%;
-    height:100%;
-    z-index:0;
 }
